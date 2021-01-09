@@ -291,7 +291,7 @@ abstract class Hook
         $this->filter('plugins_api', [$updater, 'tabs'], 3, 20);
         $this->action('upgrader_process_complete', [$updater, 'updated'], 2, 10);
 
-        return self;
+        return $this;
     }
 
     /**
