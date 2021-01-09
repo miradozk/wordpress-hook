@@ -1,0 +1,20 @@
+{
+    "name": "miradozk/wordpress-hook",
+    "description": "WordPress Hook",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Mirado ZK",
+            "email": "miradozk@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "MiradoZk\\WordPressHook\\": "./src/"
+        }
+    },
+    "require": {
+        "monolog/monolog": "^2.0",
+        "guzzlehttp/guzzle": "^7.0"
+    }
+}
