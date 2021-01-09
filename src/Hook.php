@@ -285,7 +285,7 @@ abstract class Hook
      */
     public function updatable(): self
     {
-        $updater = new Updater($this->plugin, $this->hub, $this->logger());
+        $updater = new Updater($this->plugin, $this->hub);
 
         $this->filter('site_transient_update_plugins', $updater, 1, 10);
         $this->filter('plugins_api', [$updater, 'tabs'], 3, 20);
