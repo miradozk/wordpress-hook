@@ -111,17 +111,12 @@ abstract class Hook
      */
     public function action($hook, $callback, $args = 0, $priority = 10): self
     {
-        $action = [
+        $this->hooks['actions'][] = [
             'callback' => $callback,
             'name' => $hook,
             'priority' => $priority,
+            'args' => $args
         ];
-
-        if (!$args) {
-            $action['args'] = $args;
-        }
-
-        $this->hooks['actions'][] = $action;
         
         return $this;
     }
@@ -137,17 +132,12 @@ abstract class Hook
      */
     public function filter($hook, $callback, $args = 0, $priority = 10): self
     {
-        $filter = [
+        $this->hooks['filters'][] = [
             'callback' => $callback,
             'name' => $hook,
             'priority' => $priority,
+            'args' => $args
         ];
-
-        if (!$args) {
-            $filter['args'] = $args;
-        }
-
-        $this->hooks['filters'][] = $filter;
         
         return $this;
     }
