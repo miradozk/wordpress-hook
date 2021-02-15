@@ -86,7 +86,7 @@ abstract class Hook
     protected function setLogger()
     {
         $this->logger = new Logger($this->plugin);
-        $path = dirname($this->filename) . '/logs/' . basename($this->plugin) . '.log';
+        $path = dirname($this->filename) . '/logs/' . basename($this->plugin, '.php') . '.log';
         $this->logger->pushHandler(new RotatingFileHandler($path, 4));
     }
 
