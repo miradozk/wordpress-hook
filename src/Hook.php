@@ -51,7 +51,7 @@ abstract class Hook
      * @param string $filename
      * @param boolean $logger
      */
-    public function __construct(string $filename, $logger = false)
+    public function __construct(string $filename, $logger = true)
     {
         $this->filename = $filename;
         $this->plugin = plugin_basename($this->filename);
@@ -86,7 +86,7 @@ abstract class Hook
     protected function setLogger()
     {
         $this->logger = new Logger($this->plugin);
-        $path = dirname($this->filename) . '/logs/' . $this->plugin . '.log';
+        $path = dirname($this->filename) . '/logs/' . basename($this->plugin) . '.log';
         $this->logger->pushHandler(new RotatingFileHandler($path, 4));
     }
 
