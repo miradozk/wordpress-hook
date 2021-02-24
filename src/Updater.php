@@ -6,8 +6,8 @@ use GuzzleHttp\Client;
 use Throwable;
 
 /**
- * Gestion des mises à jour
- * 
+ * Gestion des mises à jour.
+ *
  * @author Mirado <miradozk@gmail.com>
  */
 class Updater
@@ -73,14 +73,14 @@ class Updater
             try {
                 $response = $this->http->request('GET', $this->hub . $this->plugin->slug);
 
-                $response = json_decode($response->getBody()->getContents(), true);
+                $result = json_decode($response->getBody()->getContents());
 
-                if (isset($response['sections']) && $response['sections']) {
-                    $result->sections = (array) $response['sections'];
+                if (isset($result->sections) && $result->sections) {
+                    $result->sections = (array) $result->sections;
                 }
 
-                if (isset($response['banners']) && $response['banners']) {
-                    $result->banners = (array) $response['banners'];
+                if (isset($result->banners) && $result->banners) {
+                    $result->banners = (array) $result->banners;
                 }
 
                 set_transient($this->plugin->cacheId, $result, 360);
@@ -133,12 +133,12 @@ class Updater
                 $response = $this->http->request('GET', $this->hub . $this->plugin->slug);
                 $response = json_decode($response->getBody()->getContents(), true);
 
-                if (isset($response['sections'])) {
-                    $result->sections = (array) $response['sections'];
+                if (isset($result->sections)) {
+                    $result->sections = (array) $result->sections;
                 }
 
-                if (isset($response['banners'])) {
-                    $result->banners = (array) $response['banners'];
+                if (isset($result->banners)) {
+                    $result->banners = (array) $result->banners;
                 }
 
                 set_transient($this->plugin->cacheId, $result, 360);
