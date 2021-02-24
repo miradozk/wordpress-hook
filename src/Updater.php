@@ -73,14 +73,14 @@ class Updater
             try {
                 $response = $this->http->request('GET', $this->hub . $this->plugin->slug);
 
-                $result = json_decode($response->getBody()->getContents());
+                $response = json_decode($response->getBody()->getContents(), true);
 
-                if (!is_array($result->sections)) {
-                    $result->sections = (array) $result->sections;
+                if (isset($response['sections']) && $response['sections']) {
+                    $result->sections = (array) $response['sections'];
                 }
 
-                if (!is_array($result->banners)) {
-                    $result->banners = (array) $result->banners;
+                if (isset($response['banners']) && $response['banners']) {
+                    $result->banners = (array) $response['banners'];
                 }
 
                 set_transient($this->plugin->cacheId, $result, 360);
@@ -131,15 +131,14 @@ class Updater
         if (!$result) {
             try {
                 $response = $this->http->request('GET', $this->hub . $this->plugin->slug);
+                $response = json_decode($response->getBody()->getContents(), true);
 
-                $result = json_decode($response->getBody()->getContents());
-
-                if (!is_array($result->sections)) {
-                    $result->sections = (array) $result->sections;
+                if (isset($response['sections'])) {
+                    $result->sections = (array) $response['sections'];
                 }
 
-                if (!is_array($result->banners)) {
-                    $result->banners = (array) $result->banners;
+                if (isset($response['banners'])) {
+                    $result->banners = (array) $response['banners'];
                 }
 
                 set_transient($this->plugin->cacheId, $result, 360);
