@@ -131,7 +131,7 @@ class Updater
         if (!$result) {
             try {
                 $response = $this->http->request('GET', $this->hub . $this->plugin->slug);
-                $response = json_decode($response->getBody()->getContents(), true);
+                $result = json_decode($response->getBody()->getContents());
 
                 if (isset($result->sections)) {
                     $result->sections = (array) $result->sections;

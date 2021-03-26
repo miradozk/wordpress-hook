@@ -76,6 +76,7 @@ abstract class Hook
         $this->hooks['install'] = [];
         $this->hooks['uninstall'] = [];
         $this->hooks['cli'] = [];
+        $this->hooks['api'] = [];
     }
 
     /**
@@ -212,6 +213,19 @@ abstract class Hook
         return $this;
     }
 
+
+    public function api(string $method, string $route, $callback, array $args = [])
+    {
+        $this->hooks['api'][] = [
+            'route' => $route,
+            'methods' => strtoupper($method),
+            'callback' => $callback,
+            'args' => $args 
+        ];
+
+        return $this;
+    }
+
     /**
      * Déclarer les hooks.
      */
@@ -258,7 +272,14 @@ abstract class Hook
                             \WP_CLI::add_command($items['name'], $items['callback']);
                         }
                         break;
-
+                    case 'api':
+                        add_action('rest_api_init', function () use ($type, $items){
+                            register_rest_route(self::NAMESPACE, $items['route'], [
+                                'methods' => $items['method'],
+                                'callback' => $items['callback'],
+                            ]);
+                        });
+                        break;
                     default:
                         break;
                 }
